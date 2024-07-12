@@ -34,4 +34,15 @@ This file contains the code that is executed every time the window is drawn
 ### Implimentations on `struct Snake`
 
 -   The `new` function is used to create a new instance of the `struct Snake`. The size of the snake at first is set to 4 blocks. The initial direction is set to `Right`.
--
+-   The `draw` function is used to draw the snake. It uses `draw_block` defined in the `draw.rs` file to do so.
+-   The `head_position` function returns a tuple of `(i32, i32)` which is used to pin point the coordinated of the head of the snake. This is useful in various scenarios when we decide how the game will be over and all.
+-   The `move_forward` function first checks whether the direction that the snake is moving and is going to move next is valid.
+    -   If it is, it gets the position of the head of the snake through the `head_position()`method.
+    -   It then demos a new_block to give the next direction. As the coordinates of the origin in a screen is on the top lect corner and the (in-general) negative y is the positive vertical axis, the Directions in the new_block are given so.
+    -   The `new_block` is then pushed in front of the linked list body of the snake.
+    -   As the size of the snake after the movement and before should remain same, since it is not eating something, so the last block of the linked list body is poped out.
+    -   The `tail` of the linked list is assigned to the removed block.
+-   The `head_direction` function is used to return the current direction of the snake.
+-   The `next_head` function returns the next coordinates, in which the head of the snake is going to be in.
+-   The `restore_tail` function will be used when the snake will eat th food and its size will increase. It essentially clones a block and pushes it back to the linked list body of the snake.
+-   The `overlap_tail` function returns a bool value based on whether any part of the snake is overlapping with any other part of it. It can happen hen the nsake is making a loop with its body. It also handles the ambigious case where the snake makes a perfect loop with its head and tail in one block, overlapping.
